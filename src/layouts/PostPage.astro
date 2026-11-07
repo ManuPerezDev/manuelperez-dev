@@ -5,7 +5,7 @@ import { render } from 'astro:content'
 import Icon from '../components/Icon.astro'
 import LanguageSwitcher from '../components/LanguageSwitcher.astro'
 import ThemeToggle from '../components/ThemeToggle.astro'
-import { hasTranslation } from '../data/posts'
+import { getPosts, hasTranslation } from '../data/posts'
 import { homePath, languages, postPath, useTranslations } from '../i18n'
 import { formatLongDate } from '../utils/dates'
 import BaseLayout from './BaseLayout.astro'
@@ -30,6 +30,14 @@ for (const code of Object.keys(languages)) {
 }
 const alternates = Object.entries(paths).map(([code, href]) => ({ lang: code, href }))
 const articlesLink = `${homePath(lang)}#${t.sectionIds.articles}`
+
+// Neighbours in the same list the home shows (newest first; on /en/ untranslated posts fall back to Spanish)
+const posts = await getPosts(lang)
+const index = posts.findIndex(entry => entry.post.data.slug === slug)
+const neighbours = [
+  { entry: posts[index + 1], label: t.olderPost, icon: 'tabler:arrow-left', align: 'left' },
+  { entry: posts[index - 1], label: t.newerPost, icon: 'tabler:arrow-right', align: 'right' }
+]
 ---
 
 <BaseLayout
@@ -87,8 +95,40 @@ const articlesLink = `${homePath(lang)}#${t.sectionIds.articles}`
       </article>
     </main>
 
-    <footer class='mt-16 border-t border-line pt-6 font-mono text-sm text-ink-faint'>
-      <a href={articlesLink} class='inline-flex items-center gap-2 hover:text-accent'><Icon name='tabler:arrow-left' />{t.backToArticles}</a>
+    <footer class='mt-16 border-t border-line pt-8'>
+      <nav aria-label={t.morePosts} class='grid gap-8 sm:grid-cols-2 sm:gap-6'>
+        {
+          neighbours.map(({ entry, label, icon, align }) =>
+            entry ? (
+              <a
+                href={postPath(entry.lang, entry.post.data.slug)}
+                hreflang={entry.lang}
+                class:list={['group flex flex-col gap-1', align === 'right' && 'sm:col-start-2 sm:items-end sm:text-right']}
+              >
+                <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs text-ink-faint', align === 'right' && 'flex-row-reverse']}>
+                  <Icon
+                    name={icon}
+                    size='1.1em'
+                    class:list={[
+                      'transition-transform motion-reduce:transition-none',
+                      align === 'right' ? 'group-hover:translate-x-1' : 'group-hover:-translate-x-1'
+                    ]}
+                  />
+                  {label}
+                  {entry.lang !== lang && t.inSpanish && <span class='rounded-md bg-accent-soft px-1.5 text-accent-ink'>{t.inSpanish}</span>}
+                </span>
+                <span class='leading-snug font-medium text-balance text-ink group-hover:text-accent' lang={entry.lang === lang ? undefined : entry.lang}>
+                  {entry.post.data.title}
+                </span>
+              </a>
+            ) : null
+          )
+        }
+      </nav>
+      <a href={articlesLink} class='mt-10 inline-flex items-center gap-2 font-mono text-sm text-ink-faint hover:text-accent'>
+        <Icon name='tabler:list' />
+        {t.backToArticles}
+      </a>
     </footer>
   </div>
 </BaseLayout>

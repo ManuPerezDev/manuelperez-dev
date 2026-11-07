@@ -22,6 +22,9 @@ const ui = {
     themeDark: 'Tema oscuro',
     inSpanish: null,
     backToArticles: 'Volver a los artículos',
+    morePosts: 'Más artículos',
+    olderPost: 'Anterior',
+    newerPost: 'Siguiente',
     downloadCv: 'Descargar CV (PDF)',
     newTab: '(se abre en una pestaña nueva)',
     cv: {
@@ -51,6 +54,9 @@ const ui = {
     themeDark: 'Dark theme',
     inSpanish: 'In Spanish',
     backToArticles: 'Back to articles',
+    morePosts: 'More articles',
+    olderPost: 'Previous',
+    newerPost: 'Next',
     downloadCv: 'Download CV (PDF)',
     newTab: '(opens in a new tab)',
     cv: {
