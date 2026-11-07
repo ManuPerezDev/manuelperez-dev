@@ -1,0 +1,43 @@
+---
+// Section bar for screens below lg, where the sidebar nav is hidden: sticks to the top, highlights the
+// section in view (data-nav-link, driven by the scroll-spy script in Sidebar) and links to the other language.
+import { homePath, languages, useTranslations } from '../i18n'
+
+const { lang, sections } = Astro.props
+const t = useTranslations(lang)
+const others = Object.keys(languages).filter(code => code !== lang)
+---
+
+<div class='sticky top-0 z-30 -mx-6 mt-10 flex items-center gap-4 border-b border-line bg-canvas/85 px-6 backdrop-blur md:-mx-12 md:px-12 lg:hidden'>
+  <nav aria-label={t.sectionsLabel} class='min-w-0 flex-1 overflow-x-auto [scrollbar-width:none]'>
+    <ul class='flex gap-5'>
+      {
+        sections.map(section => (
+          <li class='shrink-0'>
+            <a
+              href={`#${section.id}`}
+              data-nav-link
+              class='flex min-h-11 items-center border-b-2 border-transparent font-mono text-xs text-ink-muted transition-colors aria-[current=true]:border-accent aria-[current=true]:text-accent'
+            >
+              {section.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  {
+    others.map(code => (
+      <a
+        href={homePath(code)}
+        hreflang={code}
+        lang={code}
+        aria-label={languages[code]}
+        title={languages[code]}
+        class='flex min-h-11 shrink-0 items-center font-mono text-xs text-ink-faint uppercase transition-colors hover:text-accent'
+      >
+        {code}
+      </a>
+    ))
+  }
+</div>

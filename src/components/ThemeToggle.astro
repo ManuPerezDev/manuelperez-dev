@@ -1,10 +1,11 @@
 ---
 // Three-way theme selector. The active option is styled from data-theme-preference on <html>
 // (set before paint, see global.css), and aria-pressed is kept in sync for screen readers.
+// touch: 44px buttons, for the mobile footer.
 import { useTranslations } from '../i18n'
 import Icon from './Icon.astro'
 
-const { lang = 'es' } = Astro.props
+const { lang = 'es', touch = false } = Astro.props
 const t = useTranslations(lang)
 const options = [
   { value: 'system', label: t.themeSystem, icon: 'tabler:device-desktop' },
@@ -22,7 +23,7 @@ const options = [
         aria-pressed='false'
         aria-label={option.label}
         title={option.label}
-        class='cursor-pointer rounded-sm p-1.5 text-ink-faint transition-colors hover:text-accent'
+        class:list={['cursor-pointer rounded-sm text-ink-faint transition-colors hover:text-accent', touch ? 'p-3.5' : 'p-1.5']}
       >
         <Icon name={option.icon} size='16' />
       </button>

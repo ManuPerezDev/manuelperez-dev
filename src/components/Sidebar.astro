@@ -40,23 +40,23 @@ const t = useTranslations(lang)
     </nav>
   </div>
 
-  <div class='mt-8 border-t border-line pt-6'>
-    <a
-      href={cvPath(lang)}
-      download={`manuel-perez-cv-${lang}.pdf`}
-      class='flex w-full items-center justify-center gap-2 rounded-lg border border-line bg-surface px-4 py-3 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent'
-    >
-      <Icon name='tabler:download' size='1.2em' />
-      {t.downloadCv}
-    </a>
-    <div class='mt-5 flex items-center justify-between gap-4'>
-      <div class='flex items-center gap-4'>
+  <div class='mt-6 lg:mt-8 lg:border-t lg:border-line lg:pt-6'>
+    <div class='flex items-center gap-6 lg:block'>
+      <a
+        href={cvPath(lang)}
+        download={`manuel-perez-cv-${lang}.pdf`}
+        class='inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-4 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent lg:flex lg:w-full lg:py-3'
+      >
+        <Icon name='tabler:download' size='1.2em' />
+        {t.downloadCv}
+      </a>
+      <div class='flex items-center gap-5 lg:hidden'>
         <a
           href={profile.links.github}
           target='_blank'
           rel='noopener noreferrer'
           aria-label={`GitHub ${t.newTab}`}
-          class='text-ink-faint transition-colors hover:text-accent'
+          class='-m-2.5 p-2.5 text-ink-faint transition-colors hover:text-accent'
         >
           <Icon name='tabler:brand-github' size='22' />
         </a>
@@ -65,7 +65,29 @@ const t = useTranslations(lang)
           target='_blank'
           rel='noopener noreferrer'
           aria-label={`LinkedIn ${t.newTab}`}
-          class='text-ink-faint transition-colors hover:text-accent'
+          class='-m-2.5 p-2.5 text-ink-faint transition-colors hover:text-accent'
+        >
+          <Icon name='tabler:brand-linkedin' size='22' />
+        </a>
+      </div>
+    </div>
+    <div class='mt-5 hidden items-center justify-between gap-4 lg:flex'>
+      <div class='flex items-center gap-5'>
+        <a
+          href={profile.links.github}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label={`GitHub ${t.newTab}`}
+          class='-m-2.5 p-2.5 text-ink-faint transition-colors hover:text-accent'
+        >
+          <Icon name='tabler:brand-github' size='22' />
+        </a>
+        <a
+          href={profile.links.linkedin}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label={`LinkedIn ${t.newTab}`}
+          class='-m-2.5 p-2.5 text-ink-faint transition-colors hover:text-accent'
         >
           <Icon name='tabler:brand-linkedin' size='22' />
         </a>
