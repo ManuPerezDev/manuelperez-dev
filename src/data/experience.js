@@ -7,12 +7,10 @@ export const experience = [
     kind: 'work',
     body: {
       es: [
-        'Desarrollo producto en una aplicación de análisis de datos agregados de redes sociales. Participo en el desarrollo de front end, back end, ETL y plataforma.',
-        'Desarrollé una herramienta interna que ahorra 30.000 € al año.'
+        'Desarrollo producto en una aplicación de análisis de datos agregados de redes sociales. Participo en el desarrollo de front end, back end, ETL y plataforma.'
       ],
       en: [
-        'I develop product for an application that analyses aggregated social media data. I work on the front end, back end, ETL and platform.',
-        'I built an internal tool that saves €30,000 a year.'
+        'I develop product for an application that analyses aggregated social media data. I work on the front end, back end, ETL and platform.'
       ]
     },
     learnMoreLink: 'https://www.audiense.com'

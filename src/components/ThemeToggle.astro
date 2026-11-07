@@ -13,7 +13,7 @@ const options = [
 ]
 ---
 
-<div role='group' aria-label={t.themeLabel} class='inline-flex items-center gap-0.5 rounded-full border border-line p-0.5'>
+<div role='group' aria-label={t.themeLabel} class='inline-flex items-center gap-0.5 rounded-md border border-line bg-surface p-0.5'>
   {
     options.map(option => (
       <button
@@ -22,9 +22,9 @@ const options = [
         aria-pressed='false'
         aria-label={option.label}
         title={option.label}
-        class='cursor-pointer rounded-full p-1.5 text-ink-faint transition-colors hover:text-accent'
+        class='cursor-pointer rounded-sm p-1.5 text-ink-faint transition-colors hover:text-accent'
       >
-        <Icon name={option.icon} size='18' />
+        <Icon name={option.icon} size='16' />
       </button>
     ))
   }

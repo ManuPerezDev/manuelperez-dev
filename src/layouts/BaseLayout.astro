@@ -9,10 +9,9 @@ const { lang = 'es', seo = {} } = Astro.props
 <html lang={lang}>
   <head>
     <Seo lang={lang} {...seo} />
-    <meta name='theme-color' content='#05070f' />
-    <Font cssVariable='--font-michroma' preload />
-    <Font cssVariable='--font-exo' preload />
-    <Font cssVariable='--font-share-tech-mono' />
+    <meta name='theme-color' content='#0d0e15' />
+    <Font cssVariable='--font-geist' preload />
+    <Font cssVariable='--font-jetbrains-mono' preload />
     <script is:inline>
       // Theme: the stored preference ('light' | 'dark'), or the OS setting when there is none ('system').
       // Runs before paint and exposes window.siteTheme for the ThemeToggle component.
@@ -20,7 +19,7 @@ const { lang = 'es', seo = {} } = Astro.props
         const root = document.documentElement
         const systemDark = window.matchMedia('(prefers-color-scheme: dark)')
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-        const browserColors = { light: '#eef1f8', dark: '#05070f' }
+        const browserColors = { light: '#f7f8fa', dark: '#0d0e15' }
 
         const readPreference = () => {
           try {

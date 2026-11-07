@@ -17,22 +17,16 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Michroma',
-      cssVariable: '--font-michroma',
-      fallbacks: ['sans-serif']
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Exo 2',
-      cssVariable: '--font-exo',
+      name: 'Geist',
+      cssVariable: '--font-geist',
       weights: ['400 700'],
-      styles: ['normal', 'italic'],
       fallbacks: ['sans-serif']
     },
     {
       provider: fontProviders.google(),
-      name: 'Share Tech Mono',
-      cssVariable: '--font-share-tech-mono',
+      name: 'JetBrains Mono',
+      cssVariable: '--font-jetbrains-mono',
+      weights: ['400 600'],
       fallbacks: ['monospace']
     }
   ]

@@ -1,12 +1,13 @@
 ---
-// Content section of the home page. On mobile the title sticks to the top while scrolling;
-// on desktop it is visually hidden because the sidebar navigation names the section.
-const { id, title } = Astro.props
+// Content section of the home page. The title is a mono header row ("// 01. TITLE", the prefix hidden from screen readers);
+// on mobile it sticks to the top while scrolling, on desktop it stays in the flow.
+const { id, title, index } = Astro.props
+const number = String(index).padStart(2, '0')
 ---
 
 <section id={id} aria-labelledby={`${id}-title`} class='mb-16 scroll-mt-16 md:mb-24 lg:mb-36 lg:scroll-mt-24'>
-  <div class='sticky top-0 z-20 -mx-6 mb-4 bg-canvas/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only'>
-    <h2 id={`${id}-title`} class='font-mono text-sm tracking-widest text-ink uppercase'>{title}</h2>
+  <div class='sticky top-0 z-20 -mx-6 mb-8 flex items-center border-b border-line bg-canvas/75 px-6 pt-5 pb-3 backdrop-blur md:-mx-12 md:px-12 lg:static lg:mx-0 lg:bg-transparent lg:px-0 lg:pt-0 lg:backdrop-blur-none'>
+    <h2 id={`${id}-title`} class='font-mono text-sm font-semibold tracking-wide text-accent uppercase'><span aria-hidden='true'>{`// ${number}. `}</span>{title}</h2>
   </div>
   <slot />
 </section>

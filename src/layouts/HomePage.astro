@@ -31,27 +31,27 @@ const alternates = Object.keys(languages).map(code => ({ lang: code, href: homeP
     {t.skipToContent}
   </a>
   <div class='mx-auto min-h-screen max-w-screen-xl px-6 py-12 md:px-12 md:py-16 lg:px-24 lg:py-0'>
-    <div class='lg:flex lg:justify-between lg:gap-4'>
+    <div class='lg:flex lg:justify-between lg:gap-16'>
       <Sidebar lang={lang} sections={sections} />
 
-      <main id='contenido' class='pt-24 lg:w-[54%] lg:py-24'>
-        <Section id={about.id} title={about.title}>
+      <main id='contenido' class='pt-24 lg:w-2/3 lg:py-24'>
+        <Section id={about.id} title={about.title} index={1}>
           <About lang={lang} />
         </Section>
 
-        <Section id={experience.id} title={experience.title}>
+        <Section id={experience.id} title={experience.title} index={2}>
           <ExperienceList lang={lang} />
         </Section>
 
-        <Section id={stack.id} title={stack.title}>
+        <Section id={stack.id} title={stack.title} index={3}>
           <Stack lang={lang} />
         </Section>
 
-        <Section id={articles.id} title={articles.title}>
+        <Section id={articles.id} title={articles.title} index={4}>
           <ArticleList lang={lang} posts={posts} />
         </Section>
 
-        <footer class='pb-16 font-mono text-sm text-ink-faint sm:pb-0'>
+        <footer class='border-t border-line pt-6 pb-16 font-mono text-xs text-ink-faint sm:pb-0'>
           © {new Date().getFullYear()} Manuel Pérez Regalado · {t.footer}
         </footer>
       </main>

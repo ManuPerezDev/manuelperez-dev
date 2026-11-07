@@ -2,7 +2,7 @@
 
 Personal site and blog of Manuel Pérez, live at [manuelperez.dev](https://manuelperez.dev). Spanish at `/`, English at `/en/`.
 
-Built with [Astro](https://astro.build) 7 (fully static, no UI framework) and [Tailwind CSS](https://tailwindcss.com) 4. Icons come from [Simple Icons](https://simpleicons.org) and [Tabler Icons](https://tabler.io/icons); fonts (Michroma, Exo 2, Share Tech Mono) are self-hosted. The visual style and its rules are in [`docs/STYLEGUIDE.md`](docs/STYLEGUIDE.md).
+Built with [Astro](https://astro.build) 7 (fully static, no UI framework) and [Tailwind CSS](https://tailwindcss.com) 4. Icons come from [Simple Icons](https://simpleicons.org) and [Tabler Icons](https://tabler.io/icons); fonts (Geist, JetBrains Mono) are self-hosted. The visual style and its rules are in [`docs/STYLEGUIDE.md`](docs/STYLEGUIDE.md).
 
 ## Development
 

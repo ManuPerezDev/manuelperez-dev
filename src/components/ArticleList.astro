@@ -1,41 +1,69 @@
 ---
+// The two latest posts lead with a large image; the rest follow as compact rows with a thumbnail.
 import { Image } from 'astro:assets'
 import { postPath, useTranslations } from '../i18n'
 import { formatShortDate } from '../utils/dates'
-import ListItem from './ListItem.astro'
 
 const { lang, posts } = Astro.props
 const t = useTranslations(lang)
+const featured = posts.slice(0, 2)
+const rest = posts.slice(2)
+const otherLang = postLang => (postLang === lang ? undefined : postLang)
 ---
 
-<ol class='group/list flex flex-col gap-12'>
+<ol class='grid gap-8 sm:grid-cols-2 sm:gap-6'>
   {
-    posts.map(({ post, lang: postLang }) => (
-      <ListItem class='gap-4'>
-        <div class='z-10 sm:col-span-6'>
-          <h3 class='leading-snug font-semibold text-ink' lang={postLang === lang ? undefined : postLang}>
-            <a href={postPath(postLang, post.data.slug)} hreflang={postLang} class='group/link hover:text-accent focus-visible:text-accent'>
-              <span class='absolute -inset-x-4 -inset-y-2.5 block rounded-sm md:-inset-x-6 md:-inset-y-4' />
-              {post.data.title}
-            </a>
-          </h3>
-          <p class='mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm tracking-wide text-ink-faint uppercase'>
-            <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatShortDate(post.data.date, t.dateLocale)}</time>
-            {postLang !== lang && t.inSpanish && (
-              <span class='rounded-full bg-accent-soft px-2 text-xs tracking-widest text-accent-ink'>{t.inSpanish}</span>
-            )}
-          </p>
-          <p class='mt-2 line-clamp-3 text-sm leading-relaxed' lang={postLang === lang ? undefined : postLang}>{post.data.description}</p>
-        </div>
+    featured.map(({ post, lang: postLang }) => (
+      <li class='group relative'>
         <Image
           src={post.data.hero_image}
           alt=''
-          width={200}
-          height={112}
+          width={400}
+          height={225}
           densities={[1, 2]}
-          class='pointer-events-none z-10 order-first aspect-video w-full max-w-50 rounded-sm border-2 border-line object-cover transition group-hover:border-accent sm:col-span-2 sm:translate-y-1'
+          class='pointer-events-none aspect-video w-full rounded-lg border border-line object-cover transition-colors group-hover:border-accent motion-reduce:transition-none'
         />
-      </ListItem>
+        <p class='mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-ink-faint'>
+          <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatShortDate(post.data.date, t.dateLocale)}</time>
+          {postLang !== lang && t.inSpanish && <span class='rounded-md bg-accent-soft px-1.5 text-accent-ink'>{t.inSpanish}</span>}
+        </p>
+        <h3 class='mt-1 text-lg leading-snug font-semibold text-balance text-ink group-hover:text-accent' lang={otherLang(postLang)}>
+          <a href={postPath(postLang, post.data.slug)} hreflang={postLang}>
+            <span class='absolute inset-0' />
+            {post.data.title}
+          </a>
+        </h3>
+        <p class='mt-2 line-clamp-3 text-sm text-ink-muted' lang={otherLang(postLang)}>{post.data.description}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<ol class='mt-10 divide-y divide-line border-t border-line'>
+  {
+    rest.map(({ post, lang: postLang }) => (
+      <li class='group relative flex items-start gap-4 py-4'>
+        <Image
+          src={post.data.hero_image}
+          alt=''
+          width={96}
+          height={54}
+          densities={[1, 2]}
+          class='pointer-events-none aspect-video w-24 shrink-0 rounded-md border border-line object-cover transition-colors group-hover:border-accent motion-reduce:transition-none'
+        />
+        <div class='min-w-0'>
+          <h3 class='leading-snug font-medium text-ink group-hover:text-accent' lang={otherLang(postLang)}>
+            <a href={postPath(postLang, post.data.slug)} hreflang={postLang}>
+              <span class='absolute inset-0' />
+              {post.data.title}
+            </a>
+          </h3>
+          <p class='mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-ink-faint'>
+            <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatShortDate(post.data.date, t.dateLocale)}</time>
+            {postLang !== lang && t.inSpanish && <span class='rounded-md bg-accent-soft px-1.5 text-accent-ink'>{t.inSpanish}</span>}
+          </p>
+        </div>
+      </li>
     ))
   }
 </ol>

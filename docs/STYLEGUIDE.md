@@ -1,63 +1,66 @@
-# Style guide: "Arranque de consola"
+# Style guide: "Product Developer"
 
-Visual identity of manuelperez.dev, inspired by the PlayStation 2 era boot screen: blue-black
-background, particles of light and a blue glow. This guide is written for people and for AI
-agents: follow it when adding or changing UI.
+Visual identity of manuelperez.dev: a calm, technical look built from a neutral canvas, white or near-black
+cards, one cyan accent and monospace labels, over a faint 32px grid. This guide is written for people and
+for AI agents: follow it when adding or changing UI.
 
 ## Principles
 
 1. **Tokens only.** Every color and font comes from the tokens in `src/styles/global.css`.
    Never write a hex, `rgb()` or a Tailwind palette color (`blue-500`, `white`...) in a component.
 2. **Tailwind first.** Style components with Tailwind utility classes built from the tokens.
-   Write CSS only for things utilities cannot express (the background, `.glow`, Markdown in `.post-body`),
+   Write CSS only for things utilities cannot express (the background grid, Markdown in `.post-body`),
    and put it in `src/styles/global.css`.
 3. **Both themes, always.** Every change must look right in light and dark. Theme switching
    is the `data-theme` attribute on `<html>`; use the `dark:` variant only for structural
    differences (e.g. which icon shows), never for colors: color tokens already switch.
-4. **The atmosphere lives in the background and the name.** Particles, halo and glow are
-   global. Content stays calm: no extra gradients, shadows or animations on cards.
+4. **Content in cards, chrome in mono.** Readable text is Geist on `surface` cards; labels, dates,
+   nav and section titles are JetBrains Mono. No gradients, glows or shadows; borders do the separating.
 5. **Static by default.** Pages are `.astro` components with no client JavaScript. A small
    `<script>` is fine for progressive enhancement (theme toggle, nav highlight). There is no UI
    framework; do not add one without a reason.
 
 ## Color tokens
 
-| Token (Tailwind class)                | Use                                | Light      | Dark        |
-| ------------------------------------- | ---------------------------------- | ---------- | ----------- |
-| `canvas` (`bg-canvas`)                | Page background                    | `#eef1f8`  | `#05070f`   |
-| `ink` (`text-ink`)                    | Headings, names, emphasis          | `#0c1433`  | `#e3e9ff`   |
-| `ink-muted` (`text-ink-muted`)        | Body text (default on `body`)      | `#3f4a6b`  | `#9aa6c8`   |
-| `ink-faint` (`text-ink-faint`)        | Dates, labels, inactive nav, icons | `#626b8a`  | `#707aa0`   |
-| `accent` (`text-accent`, `bg-accent`) | Links, hover, active state, role   | `#2747c9`  | `#6f9bff`   |
-| `accent-soft` (`bg-accent-soft`)      | Chip/tag background, inline code   | `#dce4fb`  | blue at 14% |
-| `accent-ink` (`text-accent-ink`)      | Text on `accent-soft`              | `#2340b4`  | `#a9c3ff`   |
-| `hover` (`bg-hover`)                  | Hover surface of list items        | blue at 6% | blue at 7%  |
-| `line` (`border-line`)                | Borders and dividers               | `#d3d9ea`  | blue at 16% |
+| Token (Tailwind class)                | Use                                        | Light      | Dark        |
+| ------------------------------------- | ------------------------------------------ | ---------- | ----------- |
+| `canvas` (`bg-canvas`)                | Page background                            | `#f7f8fa`  | `#0d0e15`   |
+| `surface` (`bg-surface`)              | Cards, buttons, small controls             | `#ffffff`  | `#12131a`   |
+| `ink` (`text-ink`)                    | Headings, names, emphasis                  | `#14161c`  | `#e3e1ec`   |
+| `ink-muted` (`text-ink-muted`)        | Body text (default on `body`)              | `#4a5260`  | `#bcc9cd`   |
+| `ink-faint` (`text-ink-faint`)        | Dates, labels, inactive nav, icons         | `#646b78`  | `#869397`   |
+| `accent` (`text-accent`, `bg-accent`) | Links, hover, active state, section titles | `#0e7490`  | `#4cd7f6`   |
+| `accent-soft` (`bg-accent-soft`)      | Active control, badge, inline code         | `#e3f3f7`  | cyan at 12% |
+| `accent-ink` (`text-accent-ink`)      | Text on `accent-soft`                      | `#0e7490`  | `#4cd7f6`   |
+| `hover` (`bg-hover`)                  | Hover surface of article rows              | cyan at 5% | cyan at 6%  |
+| `line` (`border-line`)                | Borders and dividers                       | `#dfe3ea`  | `#3d494c`   |
 
-Effect-only variables (used in `global.css`, not as classes): `--glow`, `--halo`, `--particles`, `--code-bg`.
+Effect-only variables (used in `global.css`, not as classes): `--grid` (background grid lines) and `--code-bg`
+(code blocks, dark in both themes).
 
-Every text token passes WCAG AA (4.5:1) on `canvas` in both themes. Check contrast when adding a token.
+Every text token passes WCAG AA (4.5:1) on `canvas` and `surface` in both themes. Check contrast
+when adding a token.
 
 ## Typography
 
 Fonts are self-hosted with the Astro fonts API (`fonts` in `astro.config.mjs`, `<Font>` in `BaseLayout`).
 
-| Role    | Font                    | Class                 | Use                                                                                       |
-| ------- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------- |
-| Display | Michroma                | `font-display`        | The name, post titles, `h2` in posts. Sparingly: never body text or long titles in lists. |
-| Body    | Exo 2 (400–700, italic) | `font-sans` (default) | Everything readable.                                                                      |
-| Data    | Share Tech Mono         | `font-mono`           | Dates, section labels, nav, role, footer. Usually `uppercase tracking-widest text-sm`.    |
+| Role    | Font                     | Class                                       | Use                                                       |
+| ------- | ------------------------ | ------------------------------------------- | --------------------------------------------------------- |
+| Display | Geist 600                | `font-display font-semibold tracking-tight` | The name, post titles, `h2` in posts.                     |
+| Body    | Geist (400–700)          | `font-sans` (default)                       | Everything readable, card titles.                         |
+| Data    | JetBrains Mono (400–600) | `font-mono`                                 | Dates, section titles, nav, role, chips, metrics, footer. |
 
-Scale in use: name `text-3xl sm:text-4xl`, post title `text-2xl sm:text-3xl`, item titles
-`font-semibold` at base size, body base, secondary text `text-sm`.
+Scale in use: name `text-3xl sm:text-4xl`, post title `text-3xl sm:text-4xl`, work card titles `text-lg font-semibold`,
+education titles `text-sm font-semibold`, body base, secondary text `text-sm`, mono labels `text-xs`/`text-sm`.
 
 ## Layout
 
-- **Home:** two columns from `lg` (1024px). Left: sticky `Sidebar` (name, role, tagline, nav,
-  social links, theme toggle). Right: `main` with one `Section` per block (`sobre-mi`,
-  `experiencia`, `stack`, `articulos`). Below `lg` it is one column and each section title
-  sticks to the top while scrolling.
-- **Posts:** one column, `max-w-3xl`, back link and theme toggle on top, Markdown inside `.post-body`.
+- **Home:** two columns from `lg` (1024px). Left: sticky `Sidebar` (name, role and location, tagline,
+  nav, Download CV button, social links, language and theme controls). Right: `main` with one numbered `Section`
+  per block (`sobre-mi`, `experiencia`, `stack`, `articulos`). Below `lg` it is one column and each section
+  header sticks to the top while scrolling.
+- **Posts:** one column, `max-w-3xl`, back link and controls on top, Markdown inside `.post-body`.
 - Side padding `px-6` on mobile, `md:px-12`, `lg:px-24`. Space between sections `mb-16 md:mb-24 lg:mb-36`.
 
 ## Components
@@ -65,28 +68,33 @@ Scale in use: name `text-3xl sm:text-4xl`, post title `text-2xl sm:text-3xl`, it
 | Component          | File                                    | Notes                                                                                                                                                                                                                                            |
 | ------------------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `BaseLayout`       | `src/layouts/BaseLayout.astro`          | `<html lang="es">`, SEO, fonts, theme script. Every page uses it.                                                                                                                                                                                |
-| `Sidebar`          | `src/components/Sidebar.astro`          | Takes `sections` (`{ id, title }[]`); highlights the section in view with `aria-current`.                                                                                                                                                        |
-| `Section`          | `src/components/Section.astro`          | `id` + `title`. Title is visible on mobile, `sr-only` on desktop.                                                                                                                                                                                |
-| `ExperienceList`   | `src/components/ExperienceList.astro`   | Reads `src/data/experience.js`.                                                                                                                                                                                                                  |
-| `ArticleList`      | `src/components/ArticleList.astro`      | Takes the `blog` collection entries.                                                                                                                                                                                                             |
-| `ListItem`         | `src/components/ListItem.astro`         | Row of ExperienceList and ArticleList: hover highlight and list fade. Parent `<ol>` needs `group/list`.                                                                                                                                          |
+| `Sidebar`          | `src/components/Sidebar.astro`          | Takes `sections` (`{ id, title }[]`); plain mono nav (no numbers or icons) that highlights the section in view with `aria-current` (accent text and a 2px left border).                                                                          |
+| `Section`          | `src/components/Section.astro`          | `id`, `title` and a 1-based `index`. Header `// 0N. TITLE` in accent mono over a `border-line` rule; the `// 0N.` prefix is `aria-hidden`. Sticky on mobile only.                                                                                |
+| `About`            | `src/components/About.astro`            | About text in both languages.                                                                                                                                                                                                                    |
+| `ExperienceList`   | `src/components/ExperienceList.astro`   | Reads `src/data/experience.js` and splits it by `kind`: work as a timeline (the current job leads with a filled accent dot and a larger title), education as a quieter two-column list under its own heading.                                    |
+| `Stack`            | `src/components/Stack.astro`            | Reads `src/data/stack.js`; one row per group. Items with `core: true` lead their row as accent chips; the rest are plain text with a faint icon.                                                                                                 |
+| `ArticleList`      | `src/components/ArticleList.astro`      | Takes the `blog` collection entries; the two latest lead with a large image and description, the rest are compact rows with a thumbnail and date.                                                                                                |
 | `Seo`              | `src/components/Seo.astro`              | Title, canonical, icons, Open Graph and Twitter tags. Pages without an image share `public/og-image.png`; posts pass `type: 'article'` and an ISO `publishedTime`.                                                                               |
-| `Stack`            | `src/components/Stack.astro`            | Reads `src/data/stack.js`; chips with a monochrome icon.                                                                                                                                                                                         |
 | `Icon`             | `src/components/Icon.astro`             | Inline SVG at build time. See Icons.                                                                                                                                                                                                             |
 | `ThemeToggle`      | `src/components/ThemeToggle.astro`      | Three options: system, light, dark. Logic lives in the `BaseLayout` head script (`window.siteTheme`): follows OS changes live, syncs tabs, updates `theme-color` and reveals the new theme with a View Transition (skipped with reduced motion). |
 | `LanguageSwitcher` | `src/components/LanguageSwitcher.astro` | ES / EN links between `/` and `/en/`, active one marked with `aria-current`.                                                                                                                                                                     |
 | `HomePage`         | `src/layouts/HomePage.astro`            | The home page for one language; takes `lang`.                                                                                                                                                                                                    |
 | `PostPage`         | `src/layouts/PostPage.astro`            | A post in one language, with ES/EN switcher and hreflang when the translation exists.                                                                                                                                                            |
-| `About`            | `src/components/About.astro`            | About text in both languages.                                                                                                                                                                                                                    |
 
 ### Patterns
 
-- **List item (experience, article):** grid `sm:grid-cols-8`, date or thumbnail in 2 columns,
-  content in 6. On `lg` hover the item gets `bg-hover` and the rest of the list fades to 50%.
-- **Section label / date:** `font-mono text-sm tracking-widest uppercase text-ink-faint`.
-- **Chip:** `rounded-full bg-accent-soft text-accent-ink text-sm font-medium px-3 py-1.5`.
+- **No cards as the default container.** Sections separate content with `border-line` rules, a timeline or
+  whitespace. `bg-surface` is for controls (Download CV, language and theme).
+- **Section title:** `font-mono text-sm font-semibold tracking-wide uppercase text-accent`, prefixed `// 0N.` (`aria-hidden`).
+- **Date / label:** `font-mono text-xs text-ink-faint` (the current job's date in `text-accent`).
+- **Core chip (stack):** `rounded-md bg-accent-soft px-2 py-0.5 text-sm font-medium text-accent-ink` with its icon;
+  non-core items are plain `text-sm text-ink-muted` with a `text-ink-faint` icon.
+- **Small control (language, theme):** `rounded-md border border-line bg-surface font-mono`; active option in
+  `accent-soft` / `accent-ink`.
 - **Link inside text:** `text-ink` + `hover:text-accent`; in Markdown, `accent` underlined.
-- **External link:** `target="_blank" rel="noopener noreferrer"` and an `↗` that moves on hover.
+- **External link:** `target="_blank" rel="noopener noreferrer"`, a `↗` that moves on hover and an sr-only
+  "opens in a new tab".
+- **Whole item clickable (articles):** an absolutely positioned span inside the item's only link.
 - **Inline element after a line break:** Astro drops the line break before a tag, so `word\n<a>` renders as
   `word<a>`. End the previous line with `{' '}` or keep the text and the tag on the same line.
 
@@ -107,14 +115,8 @@ Monochrome only: icons take `currentColor`, so they follow the text token of the
 
 ## Motion and accessibility
 
-- Only two animations: the name `.glow` pulse and small hover translations. Both stop with
-  `prefers-reduced-motion` (`motion-reduce:transition-none`, and the pulse only runs under
-  `no-preference`).
+- Motion is limited to color and border transitions and small hover translations (`↗`, `←`),
+  all with `motion-reduce:transition-none`.
 - Visible focus: global `:focus-visible` outline in `accent`. Do not remove it.
 - Icon-only links and buttons need `aria-label`. Decorative icons get `aria-hidden`.
 - Skip link "Saltar al contenido" on the home page.
-
-## Inspiration limits
-
-Colors, typography and atmosphere only. No console logos, no controller button symbols:
-they are Sony trademarks.

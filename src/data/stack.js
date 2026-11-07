@@ -1,12 +1,12 @@
-// cv: false keeps an item on the site but out of the CV.
+// cv: false keeps an item on the site but out of the CV. core: true highlights the item on the site.
 // Group titles are { es, en } pairs; item names are the same in both languages unless given as a pair.
 // Icons: "si:" are Simple Icons brand slugs, "tabler:" are Tabler Icons names. See docs/STYLEGUIDE.md.
 export const stack = [
   {
     title: { es: 'Backend y datos', en: 'Backend and data' },
     items: [
-      { name: 'Node.js', icon: 'si:nodedotjs' },
-      { name: 'TypeScript', icon: 'si:typescript' },
+      { name: 'Node.js', icon: 'si:nodedotjs', core: true },
+      { name: 'TypeScript', icon: 'si:typescript', core: true },
       { name: 'Express', icon: 'si:express' },
       { name: 'MongoDB', icon: 'si:mongodb' },
       { name: 'MySQL', icon: 'si:mysql' },
@@ -19,11 +19,11 @@ export const stack = [
   {
     title: { es: 'Frontend', en: 'Frontend' },
     items: [
-      { name: 'React', icon: 'si:react' },
+      { name: 'React', icon: 'si:react', core: true },
       { name: 'TanStack', icon: 'si:tanstack' },
       { name: 'Vite', icon: 'si:vite' },
       { name: 'Storybook', icon: 'si:storybook' },
-      { name: 'Astro', icon: 'si:astro' },
+      { name: 'Astro', icon: 'si:astro', core: true },
       { name: 'Tailwind CSS', icon: 'si:tailwindcss' }
     ]
   },
@@ -39,9 +39,9 @@ export const stack = [
   {
     title: { es: 'Testing', en: 'Testing' },
     items: [
-      { name: 'Vitest', icon: 'si:vitest' },
+      { name: 'Vitest', icon: 'si:vitest', core: true },
       { name: 'Testing Library', icon: 'si:testinglibrary' },
-      { name: 'Playwright', icon: 'si:playwright' },
+      { name: 'Playwright', icon: 'si:playwright', core: true },
       { name: 'MSW', icon: 'si:mockserviceworker' }
     ]
   },

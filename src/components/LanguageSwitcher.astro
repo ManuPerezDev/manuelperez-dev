@@ -6,7 +6,7 @@ const { lang, paths = Object.fromEntries(Object.keys(languages).map(code => [cod
 const t = useTranslations(lang)
 ---
 
-<nav aria-label={t.languageLabel} class='flex items-center gap-1 font-mono text-sm tracking-widest uppercase'>
+<nav aria-label={t.languageLabel} class='inline-flex items-center gap-0.5 rounded-md border border-line bg-surface p-0.5 font-mono text-xs uppercase'>
   {
     Object.keys(languages)
       .filter(code => paths[code])
@@ -16,9 +16,9 @@ const t = useTranslations(lang)
           hreflang={code}
           lang={code}
           title={languages[code]}
-        aria-label={languages[code]}
+          aria-label={languages[code]}
           aria-current={code === lang ? 'page' : undefined}
-          class='rounded-full px-2 py-1 text-ink-faint transition-colors hover:text-accent aria-[current=page]:bg-accent-soft aria-[current=page]:text-accent-ink'
+          class='rounded-sm px-2 py-1.5 text-ink-faint transition-colors hover:text-accent aria-[current=page]:bg-accent-soft aria-[current=page]:text-accent-ink'
         >
           {code}
         </a>

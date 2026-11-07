@@ -1,25 +1,36 @@
 ---
+// One row per group. Items marked core in src/data/stack.js lead their row and stand out; the rest are plain text.
 import { stack } from '../data/stack'
 import Icon from './Icon.astro'
 
 const { lang } = Astro.props
 const text = value => (typeof value === 'string' ? value : value[lang])
+const byCore = items => [...items].sort((a, b) => Number(Boolean(b.core)) - Number(Boolean(a.core)))
 ---
 
-<div class='flex flex-col gap-10'>
+<dl class='-mt-4 divide-y divide-line'>
   {
     stack.map(group => (
-      <div>
-        <h3 class='mb-4 font-mono text-sm tracking-widest text-ink-faint uppercase'>{text(group.title)}</h3>
-        <ul class='flex flex-wrap gap-2'>
-          {group.items.map(item => (
-            <li class='flex items-center gap-2 rounded-full bg-accent-soft py-1.5 pr-3.5 pl-3 text-sm font-medium text-accent-ink'>
-              <Icon name={item.icon} size='1.1em' class='shrink-0' />
-              {text(item.name)}
-            </li>
-          ))}
-        </ul>
+      <div class='grid gap-3 py-5 sm:grid-cols-[9rem_1fr] sm:gap-6'>
+        <dt class='pt-0.5 font-mono text-xs font-semibold tracking-wider text-ink uppercase'>{text(group.title)}</dt>
+        <dd>
+          <ul class='flex flex-wrap items-center gap-x-4 gap-y-2.5'>
+            {byCore(group.items).map(item =>
+              item.core ? (
+                <li class='flex items-center gap-1.5 rounded-md bg-accent-soft px-2 py-0.5 text-sm font-medium text-accent-ink'>
+                  <Icon name={item.icon} size='1em' class='shrink-0' />
+                  {text(item.name)}
+                </li>
+              ) : (
+                <li class='flex items-center gap-1.5 text-sm text-ink-muted'>
+                  <Icon name={item.icon} size='1em' class='shrink-0 text-ink-faint' />
+                  {text(item.name)}
+                </li>
+              )
+            )}
+          </ul>
+        </dd>
       </div>
     ))
   }
-</div>
+</dl>

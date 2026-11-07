@@ -1,33 +1,38 @@
 ---
+// Work as a timeline (the current job leads), then education as a quieter two-column list.
 import { experience } from '../data/experience'
 import { useTranslations } from '../i18n'
 import Icon from './Icon.astro'
-import ListItem from './ListItem.astro'
 
 const { lang } = Astro.props
 const t = useTranslations(lang)
+
+const work = experience.filter(item => item.kind === 'work')
+const education = experience.filter(item => item.kind === 'education')
+const arrow =
+  'ml-1 inline-block align-[-0.1em] transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 motion-reduce:transition-none'
 ---
 
-<ol class='group/list flex flex-col gap-12'>
+<ol class='ml-1 border-l border-line'>
   {
-    experience.map(item => (
-      <ListItem class='gap-2'>
-        <p class='z-10 mt-1 mb-2 font-mono text-sm tracking-wide text-ink-faint uppercase sm:col-span-2'>{item.time[lang]}</p>
-        <div class='z-10 sm:col-span-6'>
-          <h3 class='leading-snug font-semibold text-ink'>
+    work.map((item, index) => {
+      const current = index === 0
+      return (
+        <li class:list={['relative pl-7 sm:pl-8', current ? 'pb-12' : 'pb-2']}>
+          <span
+            aria-hidden='true'
+            class:list={[
+              'absolute top-1.5 -left-[5px] size-2.5 rounded-full',
+              current ? 'bg-accent ring-4 ring-canvas' : 'border border-ink-faint bg-canvas'
+            ]}
+          />
+          <p class:list={['font-mono text-xs', current ? 'text-accent' : 'text-ink-faint']}>{item.time[lang]}</p>
+          <h3 class:list={['mt-1 leading-snug font-semibold text-ink', current ? 'text-xl sm:text-2xl' : 'text-lg']}>
             {item.learnMoreLink ? (
-              <a
-                href={item.learnMoreLink}
-                target='_blank'
-                rel='noopener noreferrer'
-                class='group/link inline-flex items-baseline hover:text-accent focus-visible:text-accent'
-              >
-                <span class='absolute -inset-x-4 -inset-y-2.5 block rounded-sm md:-inset-x-6 md:-inset-y-4' />
-                <span>
-                  {item.title[lang]} · {item.organization}
-                  <Icon name='tabler:arrow-up-right' size='1em' class='ml-1 inline-block align-[-0.1em] transition-transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 motion-reduce:transition-none' />
-                  <span class='sr-only'> {t.newTab}</span>
-                </span>
+              <a href={item.learnMoreLink} target='_blank' rel='noopener noreferrer' class='group/link hover:text-accent'>
+                {item.title[lang]} · {item.organization}
+                <Icon name='tabler:arrow-up-right' size='0.85em' class={arrow} />
+                <span class='sr-only'> {t.newTab}</span>
               </a>
             ) : (
               <span>
@@ -35,11 +40,41 @@ const t = useTranslations(lang)
               </span>
             )}
           </h3>
+          <div class:list={['mt-3 space-y-3 leading-relaxed text-ink-muted', !current && 'text-sm']}>
+            {item.body[lang].map(paragraph => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </li>
+      )
+    })
+  }
+</ol>
+
+<h3 class='mt-14 font-mono text-xs font-semibold tracking-wider text-ink uppercase'>{t.cv.education}</h3>
+<ol class='mt-4 grid gap-8 border-t border-line pt-6 sm:grid-cols-2'>
+  {
+    education.map(item => (
+      <li>
+        <p class='font-mono text-xs text-ink-faint'>{item.time[lang]}</p>
+        <h4 class='mt-1 text-sm leading-snug font-semibold text-ink'>
+          {item.learnMoreLink ? (
+            <a href={item.learnMoreLink} target='_blank' rel='noopener noreferrer' class='group/link hover:text-accent'>
+              {item.title[lang]}
+              <Icon name='tabler:arrow-up-right' size='1em' class={arrow} />
+              <span class='sr-only'> {t.newTab}</span>
+            </a>
+          ) : (
+            <span>{item.title[lang]}</span>
+          )}
+        </h4>
+        <p class='mt-1 text-sm text-accent'>{item.organization}</p>
+        <div class='mt-2 space-y-2 text-sm text-ink-muted'>
           {item.body[lang].map(paragraph => (
-            <p class='mt-2 text-sm leading-relaxed'>{paragraph}</p>
+            <p>{paragraph}</p>
           ))}
         </div>
-      </ListItem>
+      </li>
     ))
   }
 </ol>
