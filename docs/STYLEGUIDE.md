@@ -88,6 +88,8 @@ education titles `text-sm font-semibold`, body base, secondary text `text-sm`, m
 - **No cards as the default container.** Sections separate content with `border-line` rules, a timeline or
   whitespace. `bg-surface` is for controls (Download CV, language and theme).
 - **Section title:** `font-mono text-sm font-semibold tracking-wide uppercase text-accent`, prefixed `// 0N.` (`aria-hidden`).
+- **Reading measure:** paragraphs in the home column cap at `max-w-xl` (~75 characters). Not `max-w-prose`: Geist's `ch`
+  is wide, so 65ch ends up near the full column.
 - **Date / label:** `font-mono text-xs text-ink-faint` (the current job's date in `text-accent`).
 - **Core chip (stack):** `rounded-md bg-accent-soft px-2 py-0.5 text-sm font-medium text-accent-ink` with its icon;
   non-core items are plain `text-sm text-ink-muted` with a `text-ink-faint` icon.
